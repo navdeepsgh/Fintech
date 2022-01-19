@@ -1,0 +1,62 @@
+{% extends "main.html" %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="~/barterrequestsreceived/">Barter Requests Received</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../profile">Profile</a>
+            </li>
+        </ul>
+        </ul>
+      </div>
+    </div>
+</nav>
+<div class="card-wrapper">
+    <div class="card">
+    <h1 class="center">"Barter Request Sent"</h1>
+    {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                <p class="center">{{msg}}</p>
+                {% endfor %}
+            {% endif %}
+    {% endwith %}
+    <form id="addcomments-form" action="/auth/receivedcomments" method="POST">
+        <h2 class="center">You can either accept request, decline request or you can add further comments:
+            To accept a request write "Accept" in comment box
+            To decline a request write "Decline" in comment box
+            To negotiate over a request add your comments</h2>
+        {% for w in reqs %}
+        <label>
+            <input type="radio" name="details" value="{{ w['request_number'] }}" required>
+            <li>Received from: {{ w['from_email'] }}</li>
+            <li>Service Requested Type: {{ w['service_type'] }}</li>
+            <li>Service Details: {{ w['details'] }}</li>
+            <li>Services to select from:</li>
+            {% for x in w['services_offered'] %}
+            <li>Service Type: {{ x['type_of_service'] }}</li>
+            <li>Details: {{ x['details_of_service'] }}</li>
+            {% endfor %}
+            <li>Comments:
+            {% for a in w['comments'] %}
+            <li>{{ a }}</li>
+            {% endfor %}
+            </li>
+        </label>
+        <br>
+        <br>
+        {% endfor %}
+        <label>Add Comments</label>
+        <input type="text" name="new_comments"  minlength="3" maxlength="250" required>
+        <br>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+{% endblock %}

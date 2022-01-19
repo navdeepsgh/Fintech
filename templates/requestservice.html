@@ -1,0 +1,55 @@
+{% extends "main.html" %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="~/requestservice/">Request Service</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" href="../profile/">Profile Page</a>
+          </li>
+        </ul>
+        </ul>
+      </div>
+    </div>
+</nav>
+<div class="card-wrapper">
+    <div class="card">
+        <h1 class="center">Add a Service</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for msg in messages %}
+            <p class="center">{{msg}}</p>
+            {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form id="customersignup-form" action="/auth/requests" method="POST">
+            <div class="md-3">
+                <label for="type_of_service" class="form-label">Type of Service Requested</label>
+                <select class="form-select" id="type_of_service" name="type_of_service" required>
+                    <option value="">Select</option>
+                    <option value="electronic">Electronics</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="catering">Catering</option>
+                    <option value="professional">Professional</option>
+                    <option value="others">Others</option>
+                </select>
+            </div>
+            <br>
+    
+            <div class="md-3">
+                <label for="details_of_service" class="form-label">Details of Service</label>
+                <input type="text" class="form-control" id="details_of_service" name="details_of_service" minlength="3" maxlength="100" required>
+            </div>
+            <br>
+            <br>
+    
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

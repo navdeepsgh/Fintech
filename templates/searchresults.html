@@ -1,0 +1,49 @@
+{% extends "main.html" %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+          <a class="nav-link" href="~/searchservice">Search Service</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../profile">Profile</a>
+            </li>
+        </ul>
+        </ul>
+      </div>
+    </div>
+</nav>
+<div class="card-wrapper">
+    <div class="card">
+    <h1 class="center">"Barter Request Form"</h1>
+    {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                <p class="center">{{msg}}</p>
+                {% endfor %}
+            {% endif %}
+    {% endwith %}
+    <form id="barterrequest-form" action="/auth/barterrequest" method="POST">
+        <h2 class="center">Select a Service you want to Barter:</h2>
+        {% for w in users %}
+        {% if w['email']!=email %}
+        {% for s in w["services_offered"] %}
+        {% if s['type_of_service']==type %}
+        <label>
+          <input type="radio" name="barter_request" value="{{ w['email']}}-{{s['type_of_service']}}-{{ s['details_of_service'] }}" required>
+          {{ w['email'] }}-{{ s["type_of_service"] }}-{{ s["details_of_service"] }}
+        </label>
+        <br>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+        
+        <button type="submit" class="btn btn-primary">Send Barter Request</button>
+    </form>
+
+{% endblock %}

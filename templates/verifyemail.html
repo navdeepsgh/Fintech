@@ -1,0 +1,56 @@
+{% extends "main.html" %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="~/signup/">Sign Up</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+          </li>
+        </ul>
+        </ul>
+      </div>
+    </div>
+</nav>
+<div class="card-wrapper">
+    <div class="card">
+    <h1 class="center">"Verify Email"</h1>
+    {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                <p class="center">{{msg}}</p>
+                {% endfor %}
+            {% endif %}
+    {% endwith %}
+    <form id="verifyemail-form" action="/auth/signup" method="POST">
+
+        <div class="mb-3">
+        <label for="otp" class="form-label">OTP</label>
+        <input type="text" class="form-control" id="otp" name="otp" minlength="4" maxlength="5" required>
+        </div>
+        <br>
+        <br>
+        <label>Please check your details:
+            <input type="radio" name="details" value="{{ name }}-{{ age }}-{{ gender }}-{{ occupation }}-{{ email }}-{{ password }}-{{ type_of_service }}-{{ details_of_service }}-{{ final_val }}" required>
+            <li>Name: {{ name }}</li>
+            <li>Age: {{ age }}</li>
+            <li>Gender: {{ gender }}</li>
+            <li>Occupation: {{ occupation }}</li>
+            <li>Type of Service: {{ type_of_service }}</li>
+            <li>Details of Service: {{ details_of_service }}</li>
+        </label>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <div class="info-text">
+    "Already Regitered User?"
+    <a href="../login">Login</a>
+</div>
+</div>
+</div>
+{% endblock %}

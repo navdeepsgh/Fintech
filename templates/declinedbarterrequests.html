@@ -1,0 +1,52 @@
+{% extends "main.html" %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="~/declinedbarterrequests/">Declined Barter Requests</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../profile">Profile</a>
+            </li>
+        </ul>
+        </ul>
+      </div>
+    </div>
+</nav>
+<div class="card-wrapper">
+    <div class="card">
+    <h1 class="center">"Declined Barter Requests"</h1>
+    {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                <p class="center">{{msg}}</p>
+                {% endfor %}
+            {% endif %}
+    {% endwith %}
+        <h2 class="center">Declined Requests (sent by you and declined by you)</h2>
+        {% for w in reqs %}
+            <li>Sent to: {{ w['to_email'] }}</li>
+            <li>Received from: {{ w['from_email'] }}</li>
+            <li>Service Requested Type: {{ w['service_type'] }}</li>
+            <li>Service Requested Details: {{ w['details'] }}</li>
+            <li>Services to select from:</li>
+            {% for x in w['services_offered'] %}
+            <li>Service Type: {{ x['type_of_service'] }}</li>
+            <li>Details: {{ x['details_of_service'] }}</li>
+            {% endfor %}
+            <li>Comments:
+            {% for a in w['comments'] %}
+            <li>{{ a }}</li>
+            {% endfor %}
+            </li>
+        <br>
+        <br>
+        <br>
+        <br>
+        {% endfor %}
+
+{% endblock %}

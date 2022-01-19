@@ -1,0 +1,68 @@
+{% extends "main.html" %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="~/profile/">Profile</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="../addservice/">Add Service</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../deleteservice/">Delete Service</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../searchservice">Search Service</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../requestservice">Request Service</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../servicesrequested">Services Requested</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../barterrequestssent">Barter Requests Sent</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../barterrequestsreceived">Barter Requests Received</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../acceptedbarterrequests">Accepted Barter Requests</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../declinedbarterrequests">Declined Barter Requests</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../logout">Logout</a>
+          </li>
+        </ul>
+        </ul>
+      </div>
+    </div>
+</nav>
+<h1 class="center"> Welcome "{{ name }}"</h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    {% for msg in messages %}
+    <p class="center">{{msg}}</p>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+<div class="card-wrapper">
+    <div class="card">
+        <h1 class="center">Your Details:</h1>
+        <p>Age: {{age}}</p>
+        <p>Gender: {{gender}}</p>
+        <p>Occupation: {{occupation}}</p>
+        <p>Email Id: {{email}}</p>
+        <h2 class="center">Services Offered by you: </h2>
+            {% for w in services_offered %}
+                <p>Type of Service Offered: {{ w["type_of_service"] }}</p>
+                    <li>Details of service: {{ w["details_of_service"] }}</li>
+            {% endfor %}
+    </div>
+</div>
+{% endblock %}
